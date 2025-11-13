@@ -7,8 +7,8 @@ const scoreText = document.getElementById("score");
 const percentageText = document.getElementById("percentage");
 const timerText = document.getElementById("timer");
 const gameInfoText = document.getElementById("game-info");
-const mensajeFallo = document.getElementById("mensajeFallo");
 const cerrarPopup = document.getElementById("cerrarPopup");
+const flagContainer = document.querySelector('.flag-container');
 
 let countries = [];
 let currentCountry = "";
@@ -21,22 +21,7 @@ let timerInterval;
 // Obtener continente guardado
 const region = localStorage.getItem("regionSeleccionada");
 
-// Cargar datos desde la API
-fetch(`https://restcountries.com/v3.1/region/${region}`)
-    .then(res => res.json())
-    .then(data => {
-        countries = data.map(p => ({
-            nombre: (p.translations?.spa?.common || p.name.common),
-            bandera: p.flags.svg
-        }));
-        document.getElementById("game").style.display = "block";
-        total = countries.length;
-        scoreText.textContent = `${score}/${total}`;
-        percentageText.textContent = `${parseFloat((score/total)*100).toFixed(0)}%`;
-        gameInfoText.textContent = `Región seleccionada: ${region.charAt(0).toUpperCase() + region.slice(1)} Paises: ${paisesToString(countries)}`;
-        iniciarJuego();
-    });
-
+// Functions
 function iniciarJuego() {
     iniciarTemporizador();
     nuevaBandera();
@@ -45,20 +30,12 @@ function iniciarJuego() {
 function nuevaBandera() {
     attempts = 3;
     const random = countries[Math.floor(Math.random() * countries.length)];
-    // console.log("Paises restantes: "+ countries.length);
     countries.splice(countries.indexOf(random), 1);
     currentCountry = random.nombre;
     flagElement.src = random.bandera;
     input.value = "";
     statusText.textContent = "";
 }
-
-checkButton.addEventListener("click", comprobar);
-input.addEventListener("keydown", e => { if (e.key === "Enter") comprobar(); });
-menuButton.addEventListener("click", volverMenu);
-cerrarPopup.addEventListener("click", () => {
-  mensajeFallo.close();
-});
 
 function comprobar() {
     const value = normalizar(input.value);
@@ -76,9 +53,9 @@ function comprobar() {
         if (attempts > 0) {
             statusText.textContent = `Incorrecto. Intentos restantes: ${attempts}`;
         } else {
-            mensajeFallo.showModal();
             actualizarMarcador();
             mostrarResultado(false);
+            abrirPopup();
             nuevaBandera();
         }
         statusText.style.color = "red";
@@ -104,19 +81,16 @@ function iniciarTemporizador() {
     }, 1000);
 }
 
-const flagContainer = document.querySelector('.flag-container');
-
 function mostrarResultado(correcto) {
-  if (correcto) {
-    flagContainer.classList.add('correcto');
-  } else {
-    flagContainer.classList.add('incorrecto');
-  }
+    if (correcto) {
+        flagContainer.classList.add('correcto');
+    } else {
+        flagContainer.classList.add('incorrecto');
+    }
 
-  // Eliminar la clase después de la animación (para poder reutilizarla)
-  setTimeout(() => {
-    flagContainer.classList.remove('correcto', 'incorrecto');
-  }, 1000); // igual que la duración de la animación en CSS
+    setTimeout(() => {
+        flagContainer.classList.remove('correcto', 'incorrecto');
+    }, 1000);
 }
 
 function paisesToString(paises){
@@ -134,3 +108,41 @@ function volverMenu(){
     console.log("Volviendo al menú principal");
     window.location.href = "index.html";
 }
+
+function abrirPopup(){
+    const dialogFallo = document.getElementById("dialogFallo");
+    const mensajeFallo = document.getElementById("mensajeFallo");
+    mensajeFallo.textContent = `Era ${currentCountry}`;
+    dialogFallo.open = true;
+}
+
+// Main flow (fetch + event listeners)
+fetch(`https://restcountries.com/v3.1/region/${region}`)
+    .then(res => res.json())
+    .then(data => {
+        countries = data.map(p => ({
+            nombre: (p.translations?.spa?.common || p.name.common),
+            bandera: p.flags.svg
+        }));
+        document.getElementById("game").style.display = "block";
+        total = countries.length;
+        scoreText.textContent = `${score}/${total}`;
+        percentageText.textContent = `${parseFloat((score/total)*100).toFixed(0)}%`;
+        gameInfoText.textContent = `Región seleccionada: ${region.charAt(0).toUpperCase() + region.slice(1)} Paises: ${paisesToString(countries)}`;
+        iniciarJuego();
+    });
+
+checkButton.addEventListener("click", comprobar);
+input.addEventListener("keydown", e => { if (e.key === "Enter") comprobar(); });
+menuButton.addEventListener("click", volverMenu);
+
+cerrarPopup.addEventListener("click", () => {
+    dialogFallo.close();
+});
+
+input.addEventListener('keydown', (event) => {
+  // Check for Ctrl+S (Windows/Linux) or Cmd+S (Mac)
+  if ((event.shiftKey) && event.key === ' ') {
+    nuevaBandera();
+  }
+});

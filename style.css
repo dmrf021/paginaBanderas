@@ -46,6 +46,35 @@ body {
     background: #175ea5;
 }
 
+.cerrarPopup, #cerrarPopup {
+    background: #004080;
+    color: #d4a017;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: clamp(18px, 2vw, 28px);
+    margin: 5px;
+}
+.cerrarPopup:hover, #cerrarPopup:hover {
+    background: #175ea5;
+}
+
+/* Dialog styles */
+#dialogFallo {
+    background: #cabebe;
+    border: 2px solid #002b5c;
+    border-radius: 8px;
+    padding: 50px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#dialogFallo::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+}
 
 /* Contenedor de la bandera */
 .flag-container, #flag-container {
