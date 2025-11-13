@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Juego</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="game" style="display: none">
+      <div class="top-bar" id="top-bar">
+        <button id="menuButton">Menu Principal</button>
+        <span id="score">0/0</span>
+        <span id="percentage">0%</span>
+        <span id="timer">00:00</span>
+      </div>
+
+      <div class="flag-container" , id="flag-container">
+        <img id="flag" src="" alt="Bandera" />
+      </div>
+
+      <input type="text" id="input" placeholder="Escribe el país..." />
+      <button id="check">Comprobar</button>
+
+      <dialog id="mensajeFallo">
+        <h2>Bienvenido a dCreations.es</h2>
+        <p>Este es un ejemplo de popup modal con HTML y JavaScript</p>
+        <button id="cerrarPopup">Cerrar</button>
+      </dialog>
+
+      <p id="status"></p>
+      <p id="game-info"></p>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/game.js"></script>
+  </body>
+</html>
