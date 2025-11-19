@@ -141,7 +141,6 @@ cerrarPopup.addEventListener("click", () => {
 });
 
 input.addEventListener('keydown', (event) => {
-  // Check for Ctrl+S (Windows/Linux) or Cmd+S (Mac)
   if ((event.shiftKey) && event.key === ' ') {
     nuevaBandera();
   }

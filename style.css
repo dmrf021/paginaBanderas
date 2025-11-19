@@ -1,25 +1,40 @@
 body {
     font-family: Arial, sans-serif;
-    background: #cabebe;
+    background: #EBD5AB;
     text-align: center;
     margin: 0;
     padding: 20px;
 }
 
+.topnav {
+    background-color: #628141;
+    overflow: hidden;
+}
+
+.topnav #vexylogic {
+    float: left;
+    color: #d4a017;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    font-weight: bold;
+}
+
 /* Títulos */
 .title {
-    color: #d4a017;
+    color: #E67E22;
     font-size: clamp(32px, 5vw, 60px);
     margin-bottom: 20px;
 }
 .subtitle {
-    color: #d4a017;
+    color: #E67E22;
     font-size: clamp(20px, 3vw, 35px);
 }
 
 /* Botones */
 .region-btn, #check {
-    background: #002b5c;
+    background: #628141;
     color: white;
     border: none;
     padding: 12px 24px;
@@ -29,12 +44,24 @@ body {
     margin: 5px;
 }
 .region-btn:hover, #check:hover {
-    background: #004080;
+    background: #8BAE66;
 }
 
+#info {
+    font-size: clamp(10px, 2vw, 20px);
+    margin-top: 15px;
+    justify-content: center;
+    position: bottom;
+    background-color: antiquewhite;
+    border: 2px solid #002b5c;
+    border-radius: 12px;
+    padding: 5px;
+}
+
+
 .menu-btn, #menuButton {
-    background: #004080;
-    color: #d4a017;
+    background: #628141;
+    color: white;
     font-weight: bold;
     border: none;
     border-radius: 8px;
@@ -43,11 +70,11 @@ body {
     margin: 5px;
 }
 .menu-btn:hover, #menuButton:hover {
-    background: #175ea5;
+    background: #8BAE66;
 }
 
 .cerrarPopup, #cerrarPopup {
-    background: #004080;
+    background: #628141;
     color: #d4a017;
     font-weight: bold;
     border: none;
@@ -57,13 +84,13 @@ body {
     margin: 5px;
 }
 .cerrarPopup:hover, #cerrarPopup:hover {
-    background: #175ea5;
+    background: #8BAE66;
 }
 
 /* Dialog styles */
 #dialogFallo {
-    background: #cabebe;
-    border: 2px solid #002b5c;
+    background: #EBD5AB;
+    border: 2px solid #628141;
     border-radius: 8px;
     padding: 50px;
     position: absolute;
@@ -148,9 +175,9 @@ body {
     justify-content: space-between;
     margin: 10px 20px;
     font-size: clamp(18px, 2vw, 28px);
-    color: #d4a017;
+    color: #E67E22;
     font-weight: bold;
-    background-color: #002b5c;
+    background-color: #628141;
     border-radius: 12px;
     padding: 5px;
 }
